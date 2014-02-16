@@ -6,9 +6,10 @@
 package com.sample;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 import org.drools.KnowledgeBase;
@@ -29,12 +30,28 @@ import com.sample.fact.ProcessState.State;
 public class DroolsExampleRunner
 {
 
-  public static class DroolsCallable<F>
+  public static class DroolsCallable
     implements Callable<Integer>
   {
 
-    private String droolsFile;
-    private List<F> facts;
+    private final String droolsFile;
+    private final Set<Object> facts;
+
+    public DroolsCallable(final String droolsFile)
+    {
+      this.droolsFile = droolsFile;
+      facts = new HashSet<>();
+    }
+
+    public void addFact(final Object fact)
+    {
+      facts.add(fact);
+    }
+
+    public void addFacts(final Collection<?> facts)
+    {
+      this.facts.addAll(facts);
+    }
 
     @Override
     public Integer call()
@@ -47,7 +64,7 @@ public class DroolsExampleRunner
       final KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory
         .newConsoleLogger(ksession);
 
-      for (final F fact: facts)
+      for (final Object fact: facts)
       {
         ksession.insert(fact);
       }
@@ -84,16 +101,6 @@ public class DroolsExampleRunner
       return kbase;
     }
 
-    public void setDroolsFile(final String droolsFile)
-    {
-      this.droolsFile = droolsFile;
-    }
-
-    public void setFacts(final List<F> facts)
-    {
-      this.facts = facts;
-    }
-
   }
 
   public static final void main(final String[] args)
@@ -103,7 +110,7 @@ public class DroolsExampleRunner
     {
       while (true)
       {
-        System.out.print("Run Drools example #: ");
+        System.out.print("\n\nRun Drools example #: ");
         final int exampleNmber = scanner.nextInt();
         if (exampleNmber <= 0)
         {
@@ -112,12 +119,8 @@ public class DroolsExampleRunner
         final String droolsFile = String.format("%d_State.drl", exampleNmber);
         System.out.println("Running Drools rules from: " + droolsFile);
 
-        final List<ProcessState> facts = new ArrayList<>();
-        facts.add(new ProcessState("New Process", State.NOT_STARTED));
-
-        final DroolsCallable<ProcessState> drools = new DroolsCallable<>();
-        drools.setDroolsFile(droolsFile);
-        drools.setFacts(facts);
+        final DroolsCallable drools = new DroolsCallable(droolsFile);
+        drools.addFact(new ProcessState("New Process", State.NOT_STARTED));
         drools.call();
       }
     }
