@@ -9,23 +9,25 @@ import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
 /**
-We have deliberately caused repeated activation of the “Run” rule, by 
-changing something in the fact that is not used by the rule to match the 
-fact. This is resolved by setting “no-loop true”.
+We have deliberately caused circular activation of the “Run” and “Abort 
+rules. This is resolved by setting “lock-on-active true”. This forces a 
+rule to activate only once.
 */
 
 rule "Run"
-no-loop true
+lock-on-active true
   when
       fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
       System.out.println("Rule fired \"Run\": fact matched " + fact);
-      fact.setNotes("Running");
+      fact.setName("Running");
+      fact.setState(State.RUNNING);
       update(fact);
       System.out.println("Rule \"Run\": after update " + fact);
 end
 
 rule "Abort"
+lock-on-active true
   when
       fact: ProcessState(name == "Running", state == State.RUNNING)
   then
