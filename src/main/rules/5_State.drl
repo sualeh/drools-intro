@@ -1,0 +1,36 @@
+package com.sample;
+
+import com.sample.fact.ProcessState;
+import com.sample.fact.ProcessState.State;
+
+
+rule "A to B"
+    when
+        fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+    then
+        System.out.println("Rule fired \"A to B\": fact matched " + fact);
+        fact.setState(State.NOT_STARTED);
+        fact.setName("Process B");
+        System.out.println("Rule \"A to B\": *NO* update " + fact);
+end
+
+rule "A to C"
+    when
+        fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+    then
+        System.out.println("Rule fired \"A to C\": fact matched " + fact);
+        fact.setState(State.NOT_STARTED);
+        fact.setName("Process C");
+        System.out.println("Rule \"A to C\": *NO* update " + fact);
+end
+
+rule "Catch-all"
+no-loop true
+    when
+        fact: ProcessState(state == State.NOT_STARTED)
+    then
+        System.out.println("Rule fired \"Catch-all\": fact matched " + fact);
+        fact.setState(State.NOT_STARTED);
+        fact.setName("Process Y");
+        System.out.println("Rule \"Catch-all\": *NO* update " + fact);
+end
