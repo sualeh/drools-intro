@@ -8,6 +8,10 @@ package com.sample;
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
+/*
+All the rules can be activated. Since none of them make any updates, all 
+get activated, causing confusion and unpredictable results.
+*/
 
 rule "A to B"
     when

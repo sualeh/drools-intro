@@ -8,6 +8,12 @@ package com.sample;
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
+/*
+All the rules can be activated, but Drools has to pick one to go first. 
+Drools would resolve this by picking the last rule that appears in the 
+file. However, since a salience value is set, Drools uses that instead 
+to fire rules in order of salience.
+*/
 
 rule "A to B"
 salience 30

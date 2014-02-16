@@ -8,6 +8,10 @@ package com.sample;
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
+/*
+All the rules can be activated, but Drools has to pick one to go first. Drools 
+resolves this by picking the last rule that appears in the file.
+*/
 
 rule "A to B"
     when

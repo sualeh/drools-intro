@@ -8,6 +8,12 @@ package com.sample;
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
+/*
+This is the simplest example of a Drools file, using one single fact 
+object, called ProcessState. The “Run” rule fires, and updates the fact, 
+causing the “Abort” rule to fire.
+*/
+
 rule "Run"
   when
       fact: ProcessState(name == "New Process", state == State.NOT_STARTED)

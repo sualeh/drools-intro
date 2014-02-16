@@ -8,6 +8,12 @@ package com.sample;
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
+/**
+We have deliberately caused repeated activation of the “Run” rule, by 
+changing something in the fact that is not used by the rule to match the 
+fact. This is resolved by setting “no-loop true”.
+*/
+
 rule "Run"
 no-loop true
   when

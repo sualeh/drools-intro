@@ -8,6 +8,12 @@ package com.sample;
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
 
+/**
+We have deliberately caused circular activation of the “Run” and “Abort 
+rules. This is resolved by setting “lock-on-active true”. This forces a 
+rule to activate only once.
+*/
+
 rule "Run"
 lock-on-active true
   when
