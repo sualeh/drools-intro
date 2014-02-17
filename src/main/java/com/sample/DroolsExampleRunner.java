@@ -62,7 +62,7 @@ public class DroolsExampleRunner
         .newStatefulKnowledgeSession();
 
       final KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory
-        .newConsoleLogger(ksession);
+        .newFileLogger(ksession, droolsFile);
 
       for (final Object fact: facts)
       {

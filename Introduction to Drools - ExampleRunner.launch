@@ -8,4 +8,5 @@
 </listAttribute>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.sample.DroolsExampleRunner"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="drools-intro"/>
+<stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:drools-intro/target}"/>
 </launchConfiguration>
