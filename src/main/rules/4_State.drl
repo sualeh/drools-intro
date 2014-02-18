@@ -13,26 +13,26 @@ All the rules can be activated, but Drools has to pick one to go first. Drools
 resolves this by picking the last rule that appears in the file.
 */
 
-rule "A to B"
+rule "New Process to Process B"
     when
         fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
     then
-        System.out.println("Rule fired \"A to B\": fact matched " + fact);
+        System.out.println("Rule fired \"New Process to Process B\": fact matched " + fact);
         fact.setState(State.NOT_STARTED);
         fact.setName("Process B");
         update(fact);
-        System.out.println("Rule \"A to B\": after update " + fact);
+        System.out.println("Rule \"New Process to Process B\": after update " + fact);
 end
 
-rule "A to C"
+rule "New Process to Process C"
     when
         fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
     then
-        System.out.println("Rule fired \"A to C\": fact matched " + fact);
+        System.out.println("Rule fired \"New Process to Process C\": fact matched " + fact);
         fact.setState(State.NOT_STARTED);
         fact.setName("Process C");
         update(fact);
-        System.out.println("Rule \"A to C\": after update " + fact);
+        System.out.println("Rule \"New Process to Process C\": after update " + fact);
 end
 
 rule "Catch-all"

@@ -13,24 +13,24 @@ All the rules can be activated. Since none of them make any updates, all
 get activated, causing confusion and unpredictable results.
 */
 
-rule "A to B"
+rule "New Process to Process B"
     when
         fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
     then
-        System.out.println("Rule fired \"A to B\": fact matched " + fact);
+        System.out.println("Rule fired \"New Process to Process B\": fact matched " + fact);
         fact.setState(State.NOT_STARTED);
         fact.setName("Process B");
-        System.out.println("Rule \"A to B\": *NO* update " + fact);
+        System.out.println("Rule \"New Process to Process B\": *NO* update " + fact);
 end
 
-rule "A to C"
+rule "New Process to Process C"
     when
         fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
     then
-        System.out.println("Rule fired \"A to C\": fact matched " + fact);
+        System.out.println("Rule fired \"New Process to Process C\": fact matched " + fact);
         fact.setState(State.NOT_STARTED);
         fact.setName("Process C");
-        System.out.println("Rule \"A to C\": *NO* update " + fact);
+        System.out.println("Rule \"New Process to Process C\": *NO* update " + fact);
 end
 
 rule "Catch-all"
