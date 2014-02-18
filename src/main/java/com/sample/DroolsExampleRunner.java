@@ -6,23 +6,22 @@
 package com.sample;
 
 
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-import org.drools.KnowledgeBase;
-import org.drools.KnowledgeBaseFactory;
-import org.drools.builder.KnowledgeBuilder;
-import org.drools.builder.KnowledgeBuilderError;
-import org.drools.builder.KnowledgeBuilderErrors;
-import org.drools.builder.KnowledgeBuilderFactory;
-import org.drools.builder.ResourceType;
-import org.drools.io.ResourceFactory;
-import org.drools.logger.KnowledgeRuntimeLogger;
-import org.drools.logger.KnowledgeRuntimeLoggerFactory;
-import org.drools.runtime.StatefulKnowledgeSession;
+import org.drools.core.io.impl.InputStreamResource;
+import org.kie.api.KieServices;
+import org.kie.api.builder.KieBuilder;
+import org.kie.api.builder.KieFileSystem;
+import org.kie.api.builder.KieRepository;
+import org.kie.api.builder.Message.Level;
+import org.kie.api.io.Resource;
+import org.kie.api.runtime.KieContainer;
+import org.kie.api.runtime.KieSession;
 
 import com.sample.fact.ProcessState;
 import com.sample.fact.ProcessState.State;
@@ -53,52 +52,60 @@ public class DroolsExampleRunner
       this.facts.addAll(facts);
     }
 
+    /**
+     * See <a href=
+     * "https://github.com/droolsjbpm/drools/blob/master/drools-examples-api/kiefilesystem-example/src/main/java/org/drools/example/api/kiefilesystem/KieFileSystemExample.java"
+     * > Drools example code </a>
+     */
     @Override
     public Integer call()
       throws Exception
     {
-      final KnowledgeBase kbase = readKnowledgeBase(droolsFile);
-      final StatefulKnowledgeSession ksession = kbase
-        .newStatefulKnowledgeSession();
 
-      final KnowledgeRuntimeLogger logger = KnowledgeRuntimeLoggerFactory
-        .newFileLogger(ksession, droolsFile);
+      final KieServices ks = KieServices.Factory.get();
+      final KieRepository kr = ks.getRepository();
+      
+      final KieFileSystem kfs = ks.newKieFileSystem();
+      kfs.write("src/main/resources" + droolsFile, getRule());
+
+      final KieBuilder kb = ks.newKieBuilder(kfs);
+      kb.buildAll(); // KieModule is automatically deployed to
+                     // KieRepository if successfully built
+      if (kb.getResults().hasMessages(Level.ERROR))
+      {
+        throw new RuntimeException("Build Errors:\n"
+                                   + kb.getResults().toString());
+      }
+
+      final KieContainer kContainer = ks.newKieContainer(kr
+        .getDefaultReleaseId());
+
+      final KieSession kSession = kContainer.newKieSession();
 
       for (final Object fact: facts)
       {
-        ksession.insert(fact);
+        kSession.insert(fact);
       }
 
       System.out.println(">> Input facts: " + facts);
-
-      final int i = ksession.fireAllRules();
-
+      final int i = kSession.fireAllRules();
       System.out.println(">> Output facts: " + facts);
 
-      logger.close();
+      kSession.destroy();
 
       return i;
     }
 
-    private KnowledgeBase readKnowledgeBase(final String droolsFile)
-      throws Exception
+    private Resource getRule()
     {
-      final KnowledgeBuilder kbuilder = KnowledgeBuilderFactory
-        .newKnowledgeBuilder();
-      kbuilder.add(ResourceFactory.newClassPathResource(droolsFile),
-                   ResourceType.DRL);
-      final KnowledgeBuilderErrors errors = kbuilder.getErrors();
-      if (errors.size() > 0)
+      final InputStream stream = this.getClass()
+        .getResourceAsStream(droolsFile);
+      if (stream == null)
       {
-        for (final KnowledgeBuilderError error: errors)
-        {
-          System.err.println(error);
-        }
-        throw new IllegalArgumentException("Could not parse knowledge.");
+        throw new IllegalAccessError("Cannot load " + droolsFile);
       }
-      final KnowledgeBase kbase = KnowledgeBaseFactory.newKnowledgeBase();
-      kbase.addKnowledgePackages(kbuilder.getKnowledgePackages());
-      return kbase;
+      final Resource resource = new InputStreamResource(stream);
+      return resource;
     }
 
   }
@@ -116,7 +123,7 @@ public class DroolsExampleRunner
         {
           return;
         }
-        final String droolsFile = String.format("%d_State.drl", exampleNmber);
+        final String droolsFile = String.format("/%d_State.drl", exampleNmber);
         System.out.println("Running Drools rules from: " + droolsFile);
 
         final DroolsCallable drools = new DroolsCallable(droolsFile);
