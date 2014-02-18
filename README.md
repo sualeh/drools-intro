@@ -1,8 +1,6 @@
 # Introduction to Drools 6
-__ A gentle introduction to basic Drools 6 concepts __
 
-This project explains basic Drools 6 concepts, such as `no-loop`, `salience`, `lock-on-active`, and so on.
-There is one simple fact object in use throughout.
+This project is a gentle introduction to basic Drools 6 concepts, such as `no-loop`, `salience`, `lock-on-active`, and so on. There is one simple fact object in use throughout. There is a `main` class to allow you to run the examples.
 
 ## How to Use
 
