@@ -16,22 +16,22 @@ fact. This is resolved by setting “no-loop true”.
 
 rule "Run"
 no-loop true
-  when
-      fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
-  then
-      System.out.println("Rule fired \"Run\": fact matched " + fact);
-      fact.setNotes("Running");
-      update(fact);
-      System.out.println("Rule \"Run\": after update " + fact);
+ when
+   fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+ then
+   System.out.println("Fired rule \"Run\" on fact " + fact);
+   fact.setNotes("Running");
+   update(fact);
+   System.out.println("Rule \"Run\" modified fact to " + fact);
 end
 
 rule "Abort"
-  when
-      fact: ProcessState(name == "Running", state == State.RUNNING)
-  then
-      System.out.println("Rule fired \"Abort\": fact matched " + fact);
-      fact.setName("New Process");
-      fact.setState(State.NOT_STARTED);
-      update(fact);
-      System.out.println("Rule \"Abort\": after update " + fact);
+ when
+   fact: ProcessState(name == "Running", state == State.RUNNING)
+ then
+   System.out.println("Fired rule \"Abort\" on fact " + fact);
+   fact.setName("New Process");
+   fact.setState(State.NOT_STARTED);
+   update(fact);
+   System.out.println("Rule \"Abort\" modified fact to " + fact);
 end

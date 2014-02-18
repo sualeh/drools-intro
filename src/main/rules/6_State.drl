@@ -10,44 +10,43 @@ import com.sample.fact.ProcessState.State;
 
 /*
 All the rules can be activated, but Drools has to pick one to go first. 
-Drools would resolve this by picking the last rule that appears in the 
-file. However, since a salience value is set, Drools uses that instead 
+Drools would resolve this by using the salience value that is set,
 to fire rules in order of salience.
 */
 
 rule "New Process to Process B"
-salience 30
-    when
-        fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
-    then
-        System.out.println("Rule fired \"New Process to Process B\": fact matched " + fact);
-        fact.setState(State.NOT_STARTED);
-        fact.setName("Process B");
-        update(fact);
-        System.out.println("Rule \"New Process to Process B\": after update " + fact);
+salience 10
+  when
+    fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+  then
+    System.out.println("Fired rule \"New Process to Process B\" on fact " + fact);
+    fact.setState(State.NOT_STARTED);
+    fact.setName("Process B");
+    update(fact);
+    System.out.println("Rule \"New Process to Process B\" modified fact to " + fact);
 end
 
 rule "New Process to Process C"
-salience 20
-    when
-        fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
-    then
-        System.out.println("Rule fired \"New Process to Process C\": fact matched " + fact);
-        fact.setState(State.NOT_STARTED);
-        fact.setName("Process C");
-        update(fact);
-        System.out.println("Rule \"New Process to Process C\": after update " + fact);
+salience 30
+  when
+    fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+  then
+    System.out.println("Fired rule \"New Process to Process C\" on fact " + fact);
+    fact.setState(State.NOT_STARTED);
+    fact.setName("Process C");
+    update(fact);
+    System.out.println("Rule \"New Process to Process C\" modified fact to " + fact);
 end
 
 rule "Catch-all"
 no-loop true
-salience 10
-    when
-        fact: ProcessState(state == State.NOT_STARTED)
-    then
-        System.out.println("Rule fired \"Catch-all\": fact matched " + fact);
-        fact.setState(State.NOT_STARTED);
-        fact.setName("Process Y");
-        update(fact);
-        System.out.println("Rule \"Catch-all\": after update " + fact);
+salience 20
+  when
+    fact: ProcessState(state == State.NOT_STARTED)
+  then
+    System.out.println("Fired rule \"Catch-all\" on fact " + fact);
+    fact.setState(State.NOT_STARTED);
+    fact.setName("Process Y");
+    update(fact);
+    System.out.println("Rule \"Catch-all\" modified fact to " + fact);
 end

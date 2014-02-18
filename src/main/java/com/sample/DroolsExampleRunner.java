@@ -64,7 +64,7 @@ public class DroolsExampleRunner
 
       final KieServices ks = KieServices.Factory.get();
       final KieRepository kr = ks.getRepository();
-      
+
       final KieFileSystem kfs = ks.newKieFileSystem();
       kfs.write("src/main/resources" + droolsFile, getRule());
 
@@ -73,8 +73,7 @@ public class DroolsExampleRunner
                      // KieRepository if successfully built
       if (kb.getResults().hasMessages(Level.ERROR))
       {
-        throw new RuntimeException("Build Errors:\n"
-                                   + kb.getResults().toString());
+        throw new RuntimeException(kb.getResults().toString());
       }
 
       final KieContainer kContainer = ks.newKieContainer(kr
@@ -89,7 +88,7 @@ public class DroolsExampleRunner
 
       System.out.println(">> Input facts: " + facts);
       final int i = kSession.fireAllRules();
-      System.out.println(">> Output facts: " + facts);
+      System.out.println("<< Output facts: " + facts);
 
       kSession.destroy();
 

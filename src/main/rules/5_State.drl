@@ -14,32 +14,32 @@ get activated, causing confusion and unpredictable results.
 */
 
 rule "New Process to Process B"
-    when
-        fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
-    then
-        System.out.println("Rule fired \"New Process to Process B\": fact matched " + fact);
-        fact.setState(State.NOT_STARTED);
-        fact.setName("Process B");
-        System.out.println("Rule \"New Process to Process B\": *NO* update " + fact);
+  when
+    fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+  then
+    System.out.println("Fired rule \"New Process to Process B\" on fact " + fact);
+    fact.setState(State.NOT_STARTED);
+    fact.setName("Process B");
+    System.out.println("Rule \"New Process to Process B\" made *NO* update, resulting in the fact " + fact);
 end
 
 rule "New Process to Process C"
-    when
-        fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
-    then
-        System.out.println("Rule fired \"New Process to Process C\": fact matched " + fact);
-        fact.setState(State.NOT_STARTED);
-        fact.setName("Process C");
-        System.out.println("Rule \"New Process to Process C\": *NO* update " + fact);
+  when
+    fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+  then
+    System.out.println("Fired rule \"New Process to Process C\" on fact " + fact);
+    fact.setState(State.NOT_STARTED);
+    fact.setName("Process C");
+    System.out.println("Rule \"New Process to Process C\" made *NO* update, resulting in the fact " + fact);
 end
 
 rule "Catch-all"
 no-loop true
-    when
-        fact: ProcessState(state == State.NOT_STARTED)
-    then
-        System.out.println("Rule fired \"Catch-all\": fact matched " + fact);
-        fact.setState(State.NOT_STARTED);
-        fact.setName("Process Y");
-        System.out.println("Rule \"Catch-all\": *NO* update " + fact);
+  when
+    fact: ProcessState(state == State.NOT_STARTED)
+  then
+    System.out.println("Fired rule \"Catch-all\" on fact " + fact);
+    fact.setState(State.NOT_STARTED);
+    fact.setName("Process Y");
+    System.out.println("Rule \"Catch-all\" made *NO* update, resulting in the fact " + fact);
 end

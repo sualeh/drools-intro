@@ -15,23 +15,23 @@ causing the “Abort” rule to fire.
 */
 
 rule "Run"
-  when
-      fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
-  then
-      System.out.println("Rule fired \"Run\": fact matched " + fact);
-      fact.setName("Running");
-      fact.setState(State.RUNNING);
-      update(fact);
-      System.out.println("Rule \"Run\": after update " + fact);
+ when
+   fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
+ then
+   System.out.println("Fired rule \"Run\" on fact " + fact);
+   fact.setName("Running");
+   fact.setState(State.RUNNING);
+   update(fact);
+   System.out.println("Rule \"Run\" modified fact to " + fact);
 end
 
 rule "Abort"
-  when
-      fact: ProcessState(name == "Running", state == State.RUNNING)
-  then
-      System.out.println("Rule fired \"Abort\": fact matched " + fact);
-      fact.setName("Aborted");
-      fact.setState(State.ABORTED);
-      update(fact);
-      System.out.println("Rule \"Abort\": after update " + fact);
+ when
+   fact: ProcessState(name == "Running", state == State.RUNNING)
+ then
+   System.out.println("Fired rule \"Abort\" on fact " + fact);
+   fact.setName("Aborted");
+   fact.setState(State.ABORTED);
+   update(fact);
+   System.out.println("Rule \"Abort\" modified fact to " + fact);
 end

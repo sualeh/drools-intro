@@ -66,8 +66,8 @@ public class ProcessState
   @Override
   public String toString()
   {
-    return "ProcessState [name=" + name + ", state=" + state + ", notes="
-           + notes + "]";
+    return "ProcessState(name=" + name + ", state=" + state + ", notes="
+           + notes + ")";
   }
 
 }
