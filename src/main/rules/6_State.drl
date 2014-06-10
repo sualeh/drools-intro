@@ -19,11 +19,11 @@ salience 10
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process B\" on fact " + fact);
+    System.out.println("** Fired rule \"New Process to Process B\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process B");
     update(fact);
-    System.out.println("Rule \"New Process to Process B\" modified fact to " + fact);
+    System.out.println(" > Rule \"New Process to Process B\" modified fact to " + fact);
 end
 
 rule "New Process to Process C"
@@ -31,11 +31,11 @@ salience 30
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process C\" on fact " + fact);
+    System.out.println("** Fired rule \"New Process to Process C\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process C");
     update(fact);
-    System.out.println("Rule \"New Process to Process C\" modified fact to " + fact);
+    System.out.println(" > Rule \"New Process to Process C\" modified fact to " + fact);
 end
 
 rule "Catch-all"
@@ -44,9 +44,9 @@ salience 20
   when
     fact: ProcessState(state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"Catch-all\" on fact " + fact);
+    System.out.println("** Fired rule \"Catch-all\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process Y");
     update(fact);
-    System.out.println("Rule \"Catch-all\" modified fact to " + fact);
+    System.out.println(" > Rule \"Catch-all\" modified fact to " + fact);
 end

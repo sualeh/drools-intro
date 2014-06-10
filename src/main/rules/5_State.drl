@@ -17,20 +17,20 @@ rule "New Process to Process B"
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process B\" on fact " + fact);
+    System.out.println("** Fired rule \"New Process to Process B\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process B");
-    System.out.println("Rule \"New Process to Process B\" made *NO* update, resulting in the fact " + fact);
+    System.out.println(" > Rule \"New Process to Process B\" made *NO* update, resulting in the fact " + fact);
 end
 
 rule "New Process to Process C"
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process C\" on fact " + fact);
+    System.out.println("** Fired rule \"New Process to Process C\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process C");
-    System.out.println("Rule \"New Process to Process C\" made *NO* update, resulting in the fact " + fact);
+    System.out.println(" > Rule \"New Process to Process C\" made *NO* update, resulting in the fact " + fact);
 end
 
 rule "Catch-all"
@@ -38,8 +38,8 @@ no-loop true
   when
     fact: ProcessState(state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"Catch-all\" on fact " + fact);
+    System.out.println("** Fired rule \"Catch-all\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process Y");
-    System.out.println("Rule \"Catch-all\" made *NO* update, resulting in the fact " + fact);
+    System.out.println(" > Rule \"Catch-all\" made *NO* update, resulting in the fact " + fact);
 end
