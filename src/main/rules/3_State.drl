@@ -1,5 +1,5 @@
 /**
- * © Copyright 2014 Sualeh Fatehi
+ * © Copyright 2014-15 Sualeh Fatehi
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
@@ -19,11 +19,9 @@ lock-on-active true
  when
    fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
  then
-   System.out.println("Fired rule \"Run\" on fact " + fact);
    fact.setName("Running");
    fact.setState(State.RUNNING);
    update(fact);
-   System.out.println("Rule \"Run\" modified fact to " + fact);
 end
 
 rule "Abort"
@@ -31,9 +29,7 @@ lock-on-active true
  when
    fact: ProcessState(name == "Running", state == State.RUNNING)
  then
-   System.out.println("Fired rule \"Abort\" on fact " + fact);
    fact.setName("New Process");
    fact.setState(State.NOT_STARTED);
    update(fact);
-   System.out.println("Rule \"Abort\" modified fact to " + fact);
 end

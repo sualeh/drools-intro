@@ -1,5 +1,5 @@
 /**
- * © Copyright 2014 Sualeh Fatehi
+ * © Copyright 2014-15 Sualeh Fatehi
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
@@ -15,25 +15,21 @@ on a default conflict resolution strategy.
 */
 
 rule "New Process to Process B"
+no-loop true
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process B\" on fact " + fact);
-    fact.setState(State.NOT_STARTED);
     fact.setName("Process B");
     update(fact);
-    System.out.println("Rule \"New Process to Process B\" modified fact to " + fact);
 end
 
 rule "New Process to Process C"
+no-loop true
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process C\" on fact " + fact);
-    fact.setState(State.NOT_STARTED);
     fact.setName("Process C");
     update(fact);
-    System.out.println("Rule \"New Process to Process C\" modified fact to " + fact);
 end
 
 rule "Catch-all"
@@ -41,9 +37,6 @@ no-loop true
   when
     fact: ProcessState(state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"Catch-all\" on fact " + fact);
-    fact.setState(State.NOT_STARTED);
     fact.setName("Process Y");
     update(fact);
-    System.out.println("Rule \"Catch-all\" modified fact to " + fact);
 end

@@ -1,6 +1,6 @@
 /**
- * © Copyright 2014 Sualeh Fatehi
- * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
+ * © Copyright 2014-15 Sualeh Fatehi
+ * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
 package com.sample;
@@ -19,6 +19,7 @@ import org.kie.api.builder.KieBuilder;
 import org.kie.api.builder.KieFileSystem;
 import org.kie.api.builder.KieRepository;
 import org.kie.api.builder.Message.Level;
+import org.kie.api.event.rule.DebugAgendaEventListener;
 import org.kie.api.io.Resource;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -76,19 +77,23 @@ public class DroolsExampleRunner
         throw new RuntimeException(kb.getResults().toString());
       }
 
-      final KieContainer kContainer = ks.newKieContainer(kr
-        .getDefaultReleaseId());
+      final KieContainer kContainer = ks
+        .newKieContainer(kr.getDefaultReleaseId());
 
       final KieSession kSession = kContainer.newKieSession();
+      // kSession.addEventListener(new DebugAgendaEventListener(System.out));
+      kSession.addEventListener(new TrackingAgendaEventListener());
 
       for (final Object fact: facts)
       {
         kSession.insert(fact);
       }
 
-      System.out.println(">> Input facts: " + facts);
+      System.out.println(">> Input");
+      System.out.println("  - facts: " + facts);
       final int i = kSession.fireAllRules();
-      System.out.println("<< Output facts: " + facts);
+      System.out.println(">> Output");
+      System.out.println("  - facts: " + facts);
 
       kSession.destroy();
 

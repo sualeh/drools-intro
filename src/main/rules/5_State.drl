@@ -1,5 +1,5 @@
 /**
- * © Copyright 2014 Sualeh Fatehi
+ * © Copyright 2014-15 Sualeh Fatehi
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
@@ -14,23 +14,21 @@ get activated, causing confusion and unpredictable results.
 */
 
 rule "New Process to Process B"
+no-loop true
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process B\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process B");
-    System.out.println("Rule \"New Process to Process B\" made *NO* update, resulting in the fact " + fact);
 end
 
 rule "New Process to Process C"
+no-loop true
   when
     fact: ProcessState(name == "New Process", state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"New Process to Process C\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process C");
-    System.out.println("Rule \"New Process to Process C\" made *NO* update, resulting in the fact " + fact);
 end
 
 rule "Catch-all"
@@ -38,8 +36,6 @@ no-loop true
   when
     fact: ProcessState(state == State.NOT_STARTED)
   then
-    System.out.println("Fired rule \"Catch-all\" on fact " + fact);
     fact.setState(State.NOT_STARTED);
     fact.setName("Process Y");
-    System.out.println("Rule \"Catch-all\" made *NO* update, resulting in the fact " + fact);
 end
