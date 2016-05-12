@@ -1,5 +1,7 @@
 /**
- * © Copyright 2014-16 Sualeh Fatehi
+ * Copyright (c) 2014-16 Sualeh Fatehi
+ * All Rights Reserved
+ * 
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
@@ -19,23 +21,23 @@ public class DroolsExampleRunner
   {
     try (final Scanner scanner = new Scanner(System.in);)
     {
-      while (true)
+      System.out.print("\n\nRun Drools example #: ");
+      final int exampleNmber = scanner.nextInt();
+      if (exampleNmber <= 0)
       {
-        System.out.print("\n\nRun Drools example #: ");
-        final int exampleNmber = scanner.nextInt();
-        if (exampleNmber <= 0)
-        {
-          return;
-        }
-        final String droolsFile = String.format("/%d_State.drl", exampleNmber);
-        System.out.println("Running Drools rules from: " + droolsFile);
-
-        final ProcessState fact = new ProcessState("New Process", State.NOT_STARTED);
-
-        final DroolsCallable drools = new DroolsCallable(droolsFile);
-        drools.addFact(fact);
-        drools.call();
+        return;
       }
+      final String droolsFile = String.format("/%d_State.drl", exampleNmber);
+      System.out.format("%nRunning Drools rules from: %s%n%n", droolsFile);
+
+      final ProcessState fact = new ProcessState("New Process",
+                                                 State.NOT_STARTED);
+
+      final DroolsCallable drools = new DroolsCallable(droolsFile);
+      drools.addFact(fact);
+      drools.call();
+
+      System.out.format("%nCompleted processing Drools rules from: %s%n%n", droolsFile);
     }
   }
 

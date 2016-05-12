@@ -1,5 +1,7 @@
 /**
- * © Copyright 2014-16 Sualeh Fatehi
+ * Copyright (c) 2014-16 Sualeh Fatehi
+ * All Rights Reserved
+ * 
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
@@ -14,10 +16,10 @@ public class ProcessState
 
   public enum State
   {
-    NOT_STARTED,
-    RUNNING,
-    FINISHED,
-    ABORTED
+   NOT_STARTED,
+   RUNNING,
+   FINISHED,
+   ABORTED
   }
 
   private static final long serialVersionUID = -5958805852235635082L;
@@ -66,8 +68,8 @@ public class ProcessState
   @Override
   public String toString()
   {
-    return "ProcessState(name=" + name + ", state=" + state + ", notes="
-           + notes + ")";
+    return "ProcessState(name=" + name + ", state=" + state + ", notes=" + notes
+           + ")";
   }
 
 }
