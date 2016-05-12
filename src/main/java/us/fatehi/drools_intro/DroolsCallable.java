@@ -86,10 +86,10 @@ public class DroolsCallable
     }
 
     System.out.println(">> Input");
-    System.out.println("  - facts: " + facts);
+    System.out.format("  - facts: %s%n", facts);
     final int i = kSession.fireAllRules();
-    System.out.println(">> Output");
-    System.out.println("  - facts: " + facts);
+    System.out.println("<< Output");
+    System.out.format("  - facts: %s%n", facts);
 
     kSession.destroy();
 

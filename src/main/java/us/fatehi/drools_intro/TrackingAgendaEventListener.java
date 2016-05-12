@@ -22,23 +22,23 @@ public class TrackingAgendaEventListener
   public void afterMatchFired(final AfterMatchFiredEvent event)
   {
     final Rule rule = event.getMatch().getRule();
-    System.out.println("* Fired: " + rule);
-    System.out.println("  - facts: " + event.getMatch().getObjects());
+    System.out.format("* Fired: %s%n", rule);
+    System.out.format("  - facts: %s%n", event.getMatch().getObjects());
   }
 
   @Override
   public void matchCreated(final MatchCreatedEvent event)
   {
     final Rule rule = event.getMatch().getRule();
-    System.out.println("* Matched: " + rule);
-    System.out.println("  - facts: " + event.getMatch().getObjects());
+    System.out.format("* Matched: %s%n", rule);
+    System.out.format("  - facts: %s%n", event.getMatch().getObjects());
   }
 
   @Override
   public void matchCancelled(final MatchCancelledEvent event)
   {
     final Rule rule = event.getMatch().getRule();
-    System.out.println("* Cancelled: " + rule);
+    System.out.format("* Cancelled: %s%n", rule);
   }
-  
+
 }
