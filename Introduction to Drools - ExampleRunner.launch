@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/drools-intro/src/main/java/com/sample/DroolsExampleRunner.java"/>
+<listEntry value="/drools-intro/src/main/java/us/fatehi/drools_intro/DroolsExampleRunner.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.sample.DroolsExampleRunner"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="us.fatehi.drools_intro.DroolsExampleRunner"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="drools-intro"/>
 <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${workspace_loc:drools-intro/target}"/>
 </launchConfiguration>

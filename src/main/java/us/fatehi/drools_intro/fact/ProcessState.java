@@ -1,9 +1,9 @@
 /**
- * © Copyright 2014-15 Sualeh Fatehi
+ * © Copyright 2014-16 Sualeh Fatehi
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
  * To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/deed.en_US.
  */
-package com.sample.fact;
+package us.fatehi.drools_intro.fact;
 
 
 import java.io.Serializable;
