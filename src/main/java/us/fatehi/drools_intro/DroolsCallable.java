@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014-16 Sualeh Fatehi
+ * Copyright (c) 2014-17 Sualeh Fatehi
  * All Rights Reserved
  * 
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -87,10 +87,14 @@ public class DroolsCallable
 
     System.out.println(">> Input");
     System.out.format("  - facts: %s%n", facts);
+    System.out.println();
+    
     final int i = kSession.fireAllRules();
+    
     System.out.println("<< Output");
     System.out.format("  - facts: %s%n", facts);
-
+    System.out.println();
+    
     kSession.destroy();
 
     return i;

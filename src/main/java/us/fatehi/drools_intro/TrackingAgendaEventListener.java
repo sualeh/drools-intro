@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014-16 Sualeh Fatehi
+ * Copyright (c) 2014-17 Sualeh Fatehi
  * All Rights Reserved
  * 
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
@@ -22,23 +22,26 @@ public class TrackingAgendaEventListener
   public void afterMatchFired(final AfterMatchFiredEvent event)
   {
     final Rule rule = event.getMatch().getRule();
-    System.out.format("* Fired: %s%n", rule);
+    System.out.format(" * Fired: %s%n", rule);
     System.out.format("  - facts: %s%n", event.getMatch().getObjects());
+    System.out.println();
   }
 
   @Override
   public void matchCreated(final MatchCreatedEvent event)
   {
     final Rule rule = event.getMatch().getRule();
-    System.out.format("* Matched: %s%n", rule);
+    System.out.format(" + Matched: %s%n", rule);
     System.out.format("  - facts: %s%n", event.getMatch().getObjects());
+    System.out.println();
   }
 
   @Override
   public void matchCancelled(final MatchCancelledEvent event)
   {
     final Rule rule = event.getMatch().getRule();
-    System.out.format("* Cancelled: %s%n", rule);
+    System.out.format(" * Cancelled: %s%n", rule);
+    System.out.println();
   }
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014-16 Sualeh Fatehi
+ * Copyright (c) 2014-17 Sualeh Fatehi
  * All Rights Reserved
  * 
  * This work is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. 
@@ -68,8 +68,8 @@ public class ProcessState
   @Override
   public String toString()
   {
-    return "ProcessState(name=" + name + ", state=" + state + ", notes=" + notes
-           + ")";
+    return "ProcessState(name==\"" + name + "\", state==" + state + ", notes==\"" + notes
+           + "\")";
   }
 
 }
